@@ -7,7 +7,7 @@ user1 = {
 def AuthenticateUser(func):
     def wrap(*args, **kwargs):
         print('--- Initiated Authenticator ---')
-        if args[0][1]:
+        if 'valid' in args[0] and args[0]['valid']:
             print('--- Authentication Successful ---')
             func(*args, **kwargs)
         else:
