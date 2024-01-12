@@ -9,13 +9,12 @@ ILL_Users = {
 try:
     name = str(input("Enter your User Name:"))
     password = str(input("Enter your Password:"))
+    user_dict = {
+        'name': name,
+        'password': password
+    }
 except TypeError as err:
     print("please enter only alphabets")
-
-user_dict = {
-    'name': name,
-    'password': password
-}
 
 
 def AuthenticateUser(func):
