@@ -5,6 +5,7 @@ ILL_Users = {
 }
 
 # initializing vars
+user_dict = {}
 
 try:
     name = str(input("Enter your User Name:"))
