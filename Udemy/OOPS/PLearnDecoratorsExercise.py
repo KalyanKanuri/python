@@ -1,20 +1,34 @@
-user1 = {
+ILL_Users = {
     'name': 'Kalyan',
-    'valid': True,
+    'valid': 'True',
     'password': 'Bangaram@118'
+}
+
+# initializing vars
+
+try:
+    name = str(input("Enter your User Name:"))
+    password = str(input("Enter your Password:"))
+except TypeError as err:
+    print("please enter only alphabets")
+
+user_dict = {
+    'name': name,
+    'password': password
 }
 
 
 def AuthenticateUser(func):
     def wrap(*args, **kwargs):
         print('--- Initiated Authenticator ---')
-        if 'valid' in args[0] and args[0]['valid']:
+        if user_dict['name'] == ILL_Users['name'] and user_dict['password'] == ILL_Users['password']:
             print('--- Authentication Successful ---')
-            func(*args, **kwargs)
+            result = func(*args, **kwargs)
+            print('--- Authentication Completed ---')
+            return result
         else:
             print('Invalid User >> Access denied')
             print('--- Authentication Failed ---')
-        return func
 
     return wrap
 
@@ -24,23 +38,13 @@ def SendMessage(user):
 
 
 @AuthenticateUser
-def ValidateUser(user, key):
-    if user == user1["name"] and key == user1["password"]:
-        user1["valid"] = True
+def ValidateUser(user):
+    if ILL_Users.get('valid') == 'True':
+        ILL_Users["valid"] = 'True'
         print('--- User Validated ---')
-        SendMessage(user)
+        SendMessage(user['name'])
     else:
-        user1["valid"] = False
+        ILL_Users["valid"] = 'False'
 
 
-# initializing vars
-name = ""
-password = ""
-
-try:
-    name = str(input("Enter your User Name:"))
-    password = str(input("Enter your Password:"))
-except TypeError as err:
-    print("please enter only alphabets")
-
-ValidateUser(name, password)
+ValidateUser(user_dict)
