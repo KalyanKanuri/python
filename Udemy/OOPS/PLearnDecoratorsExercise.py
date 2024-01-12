@@ -4,6 +4,7 @@ user1 = {
     'password': 'Bangaram@118'
 }
 
+
 def AuthenticateUser(func):
     def wrap(*args, **kwargs):
         print('--- Initiated Authenticator ---')
@@ -14,20 +15,29 @@ def AuthenticateUser(func):
             print('Invalid User >> Access denied')
             print('--- Authentication Failed ---')
         return func
+
     return wrap
 
-def SendMessage(name):
-    print(f'Welcome to ILL {name},\nHave a great learning ahead,\nThank you')
-@AuthenticateUser  
-def ValidateUser(name, password):
-    if name == user1["name"] and password == user1["password"]:
+
+def SendMessage(user):
+    print(f'Welcome to ILL {user},\nHave a great learning ahead,\nThank you')
+
+
+@AuthenticateUser
+def ValidateUser(user, key):
+    if user == user1["name"] and key == user1["password"]:
         user1["valid"] = True
         print('--- User Validated ---')
-        SendMessage(name)
+        SendMessage(user)
     else:
         user1["valid"] = False
-        
-try:        
+
+
+# initializing vars
+name = ""
+password = ""
+
+try:
     name = str(input("Enter your User Name:"))
     password = str(input("Enter your Password:"))
 except TypeError as err:
